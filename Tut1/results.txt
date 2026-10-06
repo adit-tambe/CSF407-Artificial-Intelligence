@@ -1,0 +1,82 @@
+XOR Neural Network
+=============================================
+Architecture: 2 -> 2 -> 1
+Hidden activation: tanh
+Training loss: BCEWithLogitsLoss
+
+Initial loss: 0.715159
+Final loss:   0.000011
+Early ||gradient W1||: 0.061785
+
+Input       Probability    Prediction
+[0.0, 0.0]     0.000007       0
+[0.0, 1.0]     0.999987       1
+[1.0, 0.0]     0.999984       1
+[1.0, 1.0]     0.000007       0
+
+Correct predictions: 4/4
+
+First-layer gradient tensor from the first backward pass:
+tensor([[ 0.0005,  0.0006],
+        [-0.0426, -0.0448]])
+
+
+Symmetry Experiment
+=============================================
+Hidden weights at initialization:
+Parameter containing:
+tensor([[0., 0.],
+        [0., 0.]], requires_grad=True)
+
+After update 1:
+Parameter containing:
+tensor([[0., 0.],
+        [0., 0.]], requires_grad=True)
+
+After update 2:
+Parameter containing:
+tensor([[0., 0.],
+        [0., 0.]], requires_grad=True)
+
+After update 3:
+Parameter containing:
+tensor([[0., 0.],
+        [0., 0.]], requires_grad=True)
+
+After update 4:
+Parameter containing:
+tensor([[0., 0.],
+        [0., 0.]], requires_grad=True)
+
+After update 5:
+Parameter containing:
+tensor([[0., 0.],
+        [0., 0.]], requires_grad=True)
+
+Observation:
+Both hidden neurons continue to have identical weights.
+Since they start with the same parameters and receive the same gradients, training does not break the symmetry between them.
+
+
+Activation Experiment
+=============================================
+sigmoid  loss=0.000026 correct=4/4 early_grad=0.004304
+  probabilities: [0.0, 1.0, 1.0, 0.0]
+
+tanh     loss=0.000011 correct=4/4 early_grad=0.061785
+  probabilities: [0.0, 1.0, 1.0, 0.0]
+
+relu     loss=0.000004 correct=4/4 early_grad=0.004868
+  probabilities: [0.0, 1.0, 1.0, 0.0]
+
+
+Three-Class XOR Experiment
+=============================================
+Final training loss: 0.000015
+
+[0.0, 0.0] -> [1.0, 0.0, 0.0], predicted class = 0
+[0.0, 1.0] -> [0.0, 1.0, 0.0], predicted class = 1
+[1.0, 0.0] -> [0.0, 1.0, 0.0], predicted class = 1
+[1.0, 1.0] -> [0.0, 0.0, 1.0], predicted class = 2
+
+Probability sum for first example: 1.0
